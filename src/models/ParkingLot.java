@@ -1,6 +1,7 @@
 package models;
 
 import enums.ParkingLotStatus;
+import enums.SlotAssignmentStrategyType;
 import enums.VehicleType;
 
 import java.util.List;
@@ -8,9 +9,10 @@ import java.util.List;
 public class ParkingLot extends BaseModel {
     private Location location;
     private List<ParkingFloor> parkingFloors;
-    private  List<Gate> gates;
+    private List<Gate> gates;
     private List<VehicleType> supportedVehicleTypes;
     private ParkingLotStatus parkingLotStatus;
+    private SlotAssignmentStrategyType slotAssignmentStrategyType;
 
     public Location getLocation() {
         return location;
@@ -50,5 +52,13 @@ public class ParkingLot extends BaseModel {
 
     public void setParkingLotStatus(ParkingLotStatus parkingLotStatus) {
         this.parkingLotStatus = parkingLotStatus;
+    }
+
+    public SlotAssignmentStrategyType getSlotAssignmentStrategyType() {
+        return slotAssignmentStrategyType;
+    }
+
+    public void setSlotAssignmentStrategyType(SlotAssignmentStrategyType slotAssignmentStrategyType) {
+        this.slotAssignmentStrategyType = slotAssignmentStrategyType;
     }
 }

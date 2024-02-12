@@ -5,6 +5,7 @@ import enums.VehicleType;
 public class Vehicle extends BaseModel {
     private String number;
     private VehicleType vehicleType;
+    private String ownerName;
 
     public String getNumber() {
         return number;
@@ -20,5 +21,13 @@ public class Vehicle extends BaseModel {
 
     public void setVehicleType(VehicleType vehicleType) {
         this.vehicleType = vehicleType;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
     }
 }

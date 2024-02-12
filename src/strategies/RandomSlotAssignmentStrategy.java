@@ -30,7 +30,7 @@ public class RandomSlotAssignmentStrategy implements SlotAssignmentStrategy {
         for (ParkingFloor parkingFloor : parkingLot.getParkingFloors()) {
             for (ParkingSlot parkingSlot : parkingFloor.getParkingSlots()) {
                 if (parkingSlot.getParkingSlotStatus().equals(ParkingSlotStatus.UNOCCUPIED)
-                && parkingSlot.getAllowedVehicleTypes().contains(vehicleType)) {
+                        && parkingSlot.getAllowedVehicleTypes().contains(vehicleType)) {
                     return Optional.of(parkingSlot);
                 }
             }

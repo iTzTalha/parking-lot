@@ -1,8 +1,14 @@
+import controllers.BillController;
 import controllers.TicketController;
+import dtos.IssueBillRequestDTO;
+import dtos.IssueBillResponseDTO;
 import dtos.IssueTicketRequestDTO;
 import dtos.IssueTicketResponseDTO;
 import enums.VehicleType;
+import models.Bill;
+import models.Payment;
 import repositories.*;
+import services.BillService;
 import services.TicketService;
 
 public class Client {
@@ -28,12 +34,32 @@ public class Client {
 
             TicketController ticketController = new TicketController(ticketService);
 
-            IssueTicketRequestDTO requestDTO = new IssueTicketRequestDTO();
-            requestDTO.setGateId(1L);
-            requestDTO.setVehicleNumber("LY 1056 XL");
-            requestDTO.setOwnerName("Tsuki");
-            requestDTO.setVehicleType(VehicleType.CAR);
-            IssueTicketResponseDTO responseDTO = ticketController.issueTicket(requestDTO);
+            IssueTicketRequestDTO issueTicketRequestDTO = new IssueTicketRequestDTO();
+            issueTicketRequestDTO.setGateId(1L);
+            issueTicketRequestDTO.setVehicleNumber("LY 1056 XL");
+            issueTicketRequestDTO.setOwnerName("Tsuki");
+            issueTicketRequestDTO.setVehicleType(VehicleType.CAR);
+            IssueTicketResponseDTO issueTicketResponseDTO = ticketController.issueTicket(issueTicketRequestDTO);
+
+            BillRepository billRepository = new BillRepository();
+
+            BillService billService = new BillService(gateRepository, billRepository, parkingLotRepository);
+
+            BillController billController = new BillController(billService);
+
+            IssueBillRequestDTO issueBillRequestDTO = new IssueBillRequestDTO();
+            issueBillRequestDTO.setGateId(2L);
+            issueBillRequestDTO.setTicket(issueTicketResponseDTO.getTicket());
+
+            IssueBillResponseDTO issueBillResponseDTO = billController.issueBill(issueBillRequestDTO);
+
+            Bill bill = issueBillResponseDTO.getBill();
+
+            for (Payment payment : bill.getPayments()) {
+                System.out.println("PAID " + payment.getAmount() + " by " + payment.getPaymentMode());
+            }
+
+            System.out.println("PAID TOTAL - " + bill.getAmount());
         } catch (Exception e) {
             e.printStackTrace();
         }

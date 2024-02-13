@@ -3,7 +3,6 @@ package repositories;
 import exceptions.LocationNotFoundException;
 import models.Location;
 import models.Operator;
-
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;
@@ -46,6 +45,7 @@ public class OperatorRepository {
 
     public Operator saveOperator(Operator operator) {
         previousId++;
+        operator.setId(previousId);
         operator.setCreatedAt(new Date());
         operatorMap.put(previousId, operator);
         return operator;

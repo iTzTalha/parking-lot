@@ -2,11 +2,9 @@ package repositories;
 
 import enums.GateStatus;
 import enums.GateType;
-import exceptions.LocationNotFoundException;
 import exceptions.OperatorNotFoundException;
 import models.Gate;
 import models.Operator;
-
 import java.util.Date;
 import java.util.Map;
 import java.util.Optional;

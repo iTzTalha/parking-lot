@@ -1,5 +1,6 @@
 package models;
 
+import enums.BillAmountCalculationStrategyType;
 import enums.ParkingLotStatus;
 import enums.SlotAssignmentStrategyType;
 import enums.VehicleType;
@@ -13,6 +14,7 @@ public class ParkingLot extends BaseModel {
     private List<VehicleType> supportedVehicleTypes;
     private ParkingLotStatus parkingLotStatus;
     private SlotAssignmentStrategyType slotAssignmentStrategyType;
+    private BillAmountCalculationStrategyType billAmountCalculationStrategyType;
 
     public Location getLocation() {
         return location;
@@ -60,5 +62,13 @@ public class ParkingLot extends BaseModel {
 
     public void setSlotAssignmentStrategyType(SlotAssignmentStrategyType slotAssignmentStrategyType) {
         this.slotAssignmentStrategyType = slotAssignmentStrategyType;
+    }
+
+    public BillAmountCalculationStrategyType getBillAmountCalculationStrategyType() {
+        return billAmountCalculationStrategyType;
+    }
+
+    public void setBillAmountCalculationStrategyType(BillAmountCalculationStrategyType billAmountCalculationStrategyType) {
+        this.billAmountCalculationStrategyType = billAmountCalculationStrategyType;
     }
 }

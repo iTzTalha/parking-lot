@@ -8,7 +8,7 @@ import models.Ticket;
 import services.TicketService;
 
 public class TicketController {
-    private TicketService ticketService;
+    private final TicketService ticketService;
 
     public TicketController(TicketService ticketService) {
         this.ticketService = ticketService;
@@ -26,9 +26,7 @@ public class TicketController {
             return responseDTO;
         }
         catch (Exception e) {
-            responseDTO.setResponseStatus(ResponseStatus.FAILED);
-            responseDTO.setFailureMessage(e.getMessage());
-            return responseDTO;
+            throw new RuntimeException(e);
         }
 
         responseDTO.setTicket(ticket);

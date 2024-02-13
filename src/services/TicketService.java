@@ -34,6 +34,7 @@ public class TicketService {
         }
         Gate gate = gateOptional.get();
         ticket.setGateGeneratedAt(gate);
+
         ticket.setGeneratedBy(gate.getGateOperator());
 
         Optional<Vehicle> vehicleOptional = vehicleRepository.getVehicleByNumber(vehicleNumber);

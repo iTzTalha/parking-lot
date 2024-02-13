@@ -13,6 +13,7 @@ import strategies.CashPaymentStrategy;
 import strategies.OnlinePaymentStrategy;
 import strategies.PaymentStrategy;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Optional;
 
@@ -29,7 +30,13 @@ public class BillService {
 
     public Bill issueBill(Long gateId, Ticket ticket) throws GateNotFoundException, ParkingLotNotFoundException {
         Bill bill = new Bill();
-        bill.setExitTime(new Date());
+
+        Date exitTime = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(exitTime);
+        calendar.add(Calendar.HOUR_OF_DAY, 1);
+        Date updatedExitDate = calendar.getTime();
+        bill.setExitTime(updatedExitDate);
 
         bill.setTicket(ticket);
 
@@ -51,9 +58,9 @@ public class BillService {
         bill.setAmount(billAmount);
 
         double cash = billAmount / 2.0;
-        billAmount -= cash;
+        double remainingBillAmount = billAmount - cash;
         Payment cashPayment = pay(new CashPaymentStrategy(), cash);
-        Payment onlinePayment = pay(new OnlinePaymentStrategy(), billAmount);
+        Payment onlinePayment = pay(new OnlinePaymentStrategy(), remainingBillAmount);
         bill.setPayments(Arrays.asList(cashPayment, onlinePayment));
 
         bill.setBillStatus(BillStatus.PAID);

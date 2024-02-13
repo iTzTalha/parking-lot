@@ -31,8 +31,8 @@ public class GateRepository {
         if (entryGateOperatorOptional.isEmpty()) {
             throw new OperatorNotFoundException();
         }
-        Operator operator = entryGateOperatorOptional.get();
-        entryGate.setGateOperator(operator);
+        Operator entryGateOperator = entryGateOperatorOptional.get();
+        entryGate.setGateOperator(entryGateOperator);
         saveGate(entryGate);
 
         Gate exitGate = new Gate();
@@ -42,13 +42,14 @@ public class GateRepository {
         if (exitGateOperatorOptional.isEmpty()) {
             throw new OperatorNotFoundException();
         }
-        operator = exitGateOperatorOptional.get();
-        exitGate.setGateOperator(operator);
+        Operator exitGateOperator = exitGateOperatorOptional.get();
+        exitGate.setGateOperator(exitGateOperator);
         saveGate(exitGate);
     }
 
     public Gate saveGate(Gate gate) {
         previousId++;
+        gate.setId(previousId);
         gate.setCreatedAt(new Date());
         gateMap.put(previousId, gate);
         return gate;

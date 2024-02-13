@@ -23,7 +23,7 @@ public class ParkingFloorRepository {
         parkingSlotRepository.populateDummyParkingSlots(this);
     }
 
-    public ParkingFloor saveParkingFloor(ParkingFloor parkingFloor){
+    public ParkingFloor saveParkingFloor(ParkingFloor parkingFloor) {
         previousId++;
         parkingFloor.setId(previousId);
         parkingFloor.setCreatedAt(new Date());

@@ -9,7 +9,7 @@ import repositories.GateRepository;
 import repositories.ParkingLotRepository;
 import repositories.TicketRepository;
 import repositories.VehicleRepository;
-
+import java.util.Date;
 import java.util.Optional;
 
 public class TicketService {
@@ -27,6 +27,7 @@ public class TicketService {
 
     public Ticket issueTicket(Long gateId, String vehicleNumber, VehicleType vehicleType, String ownerName) throws GateNotFoundException, ParkingLotNotFoundException, ParkingSlotNotFoundException, OperatorNotFoundException, ParkingFloorNotFoundException, LocationNotFoundException {
         Ticket ticket = new Ticket();
+        ticket.setEntryTime(new Date());
 
         Optional<Gate> gateOptional = gateRepository.getGateById(gateId);
         if (gateOptional.isEmpty()) {
@@ -55,7 +56,7 @@ public class TicketService {
             throw new ParkingLotNotFoundException();
         }
         ParkingLot parkingLot = parkingLotOptional.get();
-        Optional<ParkingSlot> parkingSlotOptional = SlotAssignmentStrategyFactory.getSlotAssignmentStrategyByType(parkingLot.getSlotAssignmentStrategyType()).getSlot(vehicleType, gateId);
+        Optional<ParkingSlot> parkingSlotOptional = SlotAssignmentStrategyFactory.getSlotAssignmentStrategyByType(parkingLot.getSlotAssignmentStrategyType()).getSlot(vehicleType, parkingLot);
         if (parkingSlotOptional.isEmpty()) {
             throw new ParkingSlotNotFoundException();
         }

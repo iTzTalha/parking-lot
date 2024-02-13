@@ -1,5 +1,6 @@
 package repositories;
 
+import enums.BillAmountCalculationStrategyType;
 import enums.ParkingLotStatus;
 import enums.SlotAssignmentStrategyType;
 import enums.VehicleType;
@@ -35,6 +36,7 @@ public class ParkingLotRepository {
         }
         ParkingFloor parkingFloor = parkingFloorOptional.get();
         parkingLot.setParkingFloors(List.of(parkingFloor));
+
         Optional<Gate> entryGateOptional = gateRepository.getGateById(1L);
         if (entryGateOptional.isEmpty()) {
             throw new GateNotFoundException();
@@ -44,11 +46,12 @@ public class ParkingLotRepository {
         if (exitGateOptional.isEmpty()) {
             throw new GateNotFoundException();
         }
-        Gate exitGate = entryGateOptional.get();
+        Gate exitGate = exitGateOptional.get();
         parkingLot.setGates(Arrays.asList(entryGate, exitGate));
         parkingLot.setSupportedVehicleTypes(Arrays.asList(VehicleType.BIKE, VehicleType.CAR, VehicleType.BUS, VehicleType.TRUCK));
         parkingLot.setParkingLotStatus(ParkingLotStatus.OPEN);
         parkingLot.setSlotAssignmentStrategyType(SlotAssignmentStrategyType.RANDOM);
+        parkingLot.setBillAmountCalculationStrategyType(BillAmountCalculationStrategyType.TIME_BASED);
         saveParkingLot(parkingLot);
     }
 
